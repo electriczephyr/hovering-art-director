@@ -46,7 +46,7 @@ export default function Footer({ events, startOver, handleImageDropped }) {
 
       <div className="text-center lil-text mt-8">
       <div className="inline-block py-2 px-4 border border-yellow-200 rounded-lg bg-[#fef6aa]">
-      🤔 This is a version of the "paint with text" app example from Vercel, modified by Jayne. Check out the original {" "}
+      🤔 This is a version of the &quot;paint with text&quot; app example from Vercel, modified by Jayne. Check out the original {" "}
         <Link href="https://github.com/replicate/paint-with-words#readme">
           <a target="_blank">README</a>
         </Link>.

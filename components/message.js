@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Message({
   sender,
   shouldFillWidth = false,
@@ -10,13 +12,21 @@ export default function Message({
     <div className={`w-full ${sender === "user" ? "text-right" : ""}`}>
       {sender !== "user" ? (
         <div className="avatar">
-          <img src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"></img>
+          <Image
+            src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+            width="48"
+            height="48"
+          />
           <p>Overworked Intern</p>
         </div>
       ) : (
         <div className="avatar right">
           <p>Hovering Art Director</p>
-          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"></img>
+          <Image
+            src="https://images.unsplash.com/photo-1544973810-7ecf787e9608?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+            width="48"
+            height="48"
+          />
         </div>
       )}
 
@@ -29,9 +39,6 @@ export default function Message({
       >
         {children}
       </div>
-      {/* <div className="avatar">
-        <img src="https://images.unsplash.com/photo-1513732822839-24f03a92f633?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"></img>
-      </div> */}
     </div>
   );
 }
