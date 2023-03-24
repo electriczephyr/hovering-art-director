@@ -61,7 +61,7 @@ export default function About() {
           <Link href="/">
             <a className="bg-black text-white rounded-md text-small inline-block p-3 flex-none">
               <ArrowLeftIcon className="icon" />
-              Back to painting
+              Back to Art Directing
             </a>
           </Link>
         </div>

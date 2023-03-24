@@ -10,7 +10,7 @@ import { getRandomSeed } from "lib/seeds";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export const appName = "Hovering Art Director";
+export const appName = "Hello Hovering Art Director";
 export const appSubtitle = "Describe your vision and I'll see what I can do";
 export const appMetaDescription = "Describe your vision and I'll see what I can do";
 
@@ -30,6 +30,7 @@ export default function Home() {
   const handleImageDropped = async (image) => {
     try {
       image = await prepareImageFileForUpload(image);
+      // console.log ("uploading");
     } catch (error) {
       setError(error.message);
       return;

@@ -12,14 +12,14 @@ export default function Messages({ events, isProcessing, onUndo }) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [events.length]);
-
+console.log(events);
   return (
     <section className="w-full">
       {events.map((ev, index) => {
         if (ev.image) {
           return (
             <Fragment key={"image-" + index}>
-              <Message sender="replicate" shouldFillWidth>
+              <Message sender='replicate' shouldFillWidth>
                 <Image
                   alt={
                     ev.prompt
@@ -41,8 +41,7 @@ export default function Messages({ events, isProcessing, onUndo }) {
                         onUndo(index);
                       }}
                     >
-                      <UndoIcon className="icon" /> Undo and try a different
-                      change
+                      <UndoIcon className="icon" /> That's garbage, try again!
                     </button>
                   </div>
                 )}
