@@ -80,4 +80,5 @@ input {
 .avatar p {
   font-weight: bold;
   color: darkgray;
+  margin: .5rem;
 }

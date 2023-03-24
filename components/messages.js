@@ -41,7 +41,7 @@ console.log(events);
                         onUndo(index);
                       }}
                     >
-                      <UndoIcon className="icon" /> That's garbage, try again!
+                      <UndoIcon className="icon" /> That&apos;s garbage, throw it away!
                     </button>
                   </div>
                 )}
