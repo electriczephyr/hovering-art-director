@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CHANGE_WHAT, getRandomPhrase } from "utils";
 import Message from "./message";
 
 export default function PromptForm({
@@ -27,9 +28,7 @@ export default function PromptForm({
     <form onSubmit={handleSubmit} className="animate-in fade-in duration-700">
       <Message sender="replicate" isSameSender>
         <label htmlFor="prompt-input">
-          {isFirstPrompt
-            ? "What should we change?"
-            : "What should we change now?"}
+          {getRandomPhrase(CHANGE_WHAT)}
         </label>
       </Message>
 

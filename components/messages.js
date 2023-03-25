@@ -2,6 +2,7 @@ import { RotateCcw as UndoIcon } from "lucide-react";
 import Image from "next/future/image";
 import { Fragment, useEffect, useRef } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
+import { CHANGE_WHAT, getRandomPhrase } from "utils";
 import Message from "./message";
 
 export default function Messages({ events, isProcessing, onUndo }) {
@@ -49,9 +50,10 @@ console.log(events);
 
               {(isProcessing || index < events.length - 1) && (
                 <Message sender="replicate" isSameSender>
-                  {index === 0
+                  {getRandomPhrase(CHANGE_WHAT)}
+                  {/* {index === 0
                     ? "What do you think, what should we change with this?"
-                    : "Oh yeah, I think that looks great! Do you have more feedback for me?"}
+                    : "Oh yeah, I think that looks great! Do you have more feedback for me?"} */}
                 </Message>
               )}
             </Fragment>
