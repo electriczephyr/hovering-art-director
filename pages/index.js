@@ -7,6 +7,9 @@ import Footer from "components/footer";
 
 import prepareImageFileForUpload from "lib/prepare-image-file-for-upload";
 import { getRandomSeed } from "lib/seeds";
+// import { REPLICATE } from "constants";
+// import { ART_DIRECTOR } from "constants";
+// import { CHANGE_WHAT } from "utils";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -30,7 +33,6 @@ export default function Home() {
   const handleImageDropped = async (image) => {
     try {
       image = await prepareImageFileForUpload(image);
-      // console.log ("uploading");
     } catch (error) {
       setError(error.message);
       return;

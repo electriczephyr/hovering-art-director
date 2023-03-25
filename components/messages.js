@@ -1,3 +1,4 @@
+import { ART_DIRECTOR, REPLICATE } from "constants";
 import { RotateCcw as UndoIcon } from "lucide-react";
 import Image from "next/future/image";
 import { Fragment, useEffect, useRef } from "react";
@@ -13,14 +14,14 @@ export default function Messages({ events, isProcessing, onUndo }) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [events.length]);
-console.log(events);
+
   return (
     <section className="w-full">
       {events.map((ev, index) => {
         if (ev.image) {
           return (
             <Fragment key={"image-" + index}>
-              <Message sender='replicate' shouldFillWidth>
+              <Message sender={REPLICATE} shouldFillWidth>
                 <Image
                   alt={
                     ev.prompt
@@ -49,7 +50,7 @@ console.log(events);
               </Message>
 
               {(isProcessing || index < events.length - 1) && (
-                <Message sender="replicate" isSameSender>
+                <Message sender={REPLICATE} isSameSender>
                   {getRandomPhrase(CHANGE_WHAT)}
                   {/* {index === 0
                     ? "What do you think, what should we change with this?"
@@ -62,7 +63,7 @@ console.log(events);
 
         if (ev.prompt) {
           return (
-            <Message key={"prompt-" + index} sender="user">
+            <Message key={"prompt-" + index} sender={ART_DIRECTOR}>
               {ev.prompt}
             </Message>
           );
@@ -70,7 +71,7 @@ console.log(events);
       })}
 
       {isProcessing && (
-        <Message sender="replicate">
+        <Message sender={REPLICATE}>
           <PulseLoader color="#999" size={7} />
         </Message>
       )}

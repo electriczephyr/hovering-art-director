@@ -1,3 +1,4 @@
+import { REPLICATE } from "constants";
 import { useEffect, useState } from "react";
 import { CHANGE_WHAT, getRandomPhrase } from "utils";
 import Message from "./message";
@@ -26,7 +27,7 @@ export default function PromptForm({
 
   return (
     <form onSubmit={handleSubmit} className="animate-in fade-in duration-700">
-      <Message sender="replicate" isSameSender>
+      <Message sender={REPLICATE} isSameSender>
         <label htmlFor="prompt-input">
           {getRandomPhrase(CHANGE_WHAT)}
         </label>
