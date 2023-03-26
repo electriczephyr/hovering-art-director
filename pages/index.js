@@ -41,7 +41,8 @@ export default function Home() {
     }
     setConvo([
       ...convo,
-      { image, sender: ART_DIRECTOR }
+      { image, sender: ART_DIRECTOR },
+      { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
     ]);
   };
 
