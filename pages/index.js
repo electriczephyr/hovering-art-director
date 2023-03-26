@@ -17,7 +17,6 @@ export const appSubtitle = "Describe your vision and I'll see what I can do";
 export const appMetaDescription = "Describe your vision and I'll see what I can do";
 
 export default function Home() {
-  const [events, setEvents] = useState([]);
   const [convo, setConvo] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [error, setError] = useState(null);
@@ -27,7 +26,6 @@ export default function Home() {
 
   // set the initial image from a random seed
   useEffect(() => {
-    setEvents([{ image: seed.image }]);
     setConvo([
       { image: seed.image, sender: REPLICATE},
       { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
@@ -41,7 +39,6 @@ export default function Home() {
       setError(error.message);
       return;
     }
-    setEvents(events.concat([{ image }]));
     setConvo([
       ...convo,
       { image, sender: ART_DIRECTOR }
@@ -52,7 +49,7 @@ export default function Home() {
     e.preventDefault();
 
     const prompt = e.target.prompt.value;
-    const lastImage = events.findLast((ev) => ev.image)?.image;
+    const lastImage = convo.findLast((part) => part.image)?.image;
 
     setConvo(prevConvo => ([
       ...prevConvo,
@@ -62,10 +59,6 @@ export default function Home() {
     setError(null);
     setIsProcessing(true);
     setInitialPrompt("");
-
-    // make a copy so that the second call to setEvents here doesn't blow away the first. Why?
-    const myEvents = [...events, { prompt }];
-    setEvents(myEvents);
 
     const body = {
       prompt,
@@ -102,12 +95,6 @@ export default function Home() {
       setPredictions(predictions.concat([prediction]));
 
       if (prediction.status === "succeeded") {
-        setEvents(
-          myEvents.concat([
-            { image: prediction.output?.[prediction.output.length - 1] },
-          ])
-        );
-
         const outputImageUrl = prediction.output?.[prediction.output.length - 1];
         const newPhrase = getRandomPhrase(CHANGE_WHAT);
 
@@ -124,13 +111,10 @@ export default function Home() {
 
   const startOver = async (e) => {
     e.preventDefault();
-    setEvents(events.slice(0, 1));
     setError(null);
     setIsProcessing(false);
     setInitialPrompt(seed.prompt);
   };
-
-  console.log('conversation:', convo);
 
   return (
     <div>
@@ -151,7 +135,6 @@ export default function Home() {
         </hgroup>
 
         <Messages
-          events={events}
           conversation={convo}
           isProcessing={isProcessing}
           onUndo={() => {
@@ -171,7 +154,7 @@ export default function Home() {
         </div>
 
         <Footer
-          events={events}
+          conversation={convo}
           startOver={startOver}
           handleImageDropped={handleImageDropped}
         />

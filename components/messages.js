@@ -6,7 +6,6 @@ import PulseLoader from "react-spinners/PulseLoader";
 import Message from "./message";
 
 export default function Messages({
-  events,
   isProcessing,
   onUndo,
   conversation = []
@@ -14,62 +13,12 @@ export default function Messages({
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (events.length > 2) {
+    if (conversation.length > 2) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [events.length]);
+  }, [conversation.length]);
 
   return (
-    // <section className="w-full">
-    //   {events.map((ev, index) => {
-    //     if (ev.image) {
-    //       return (
-    //         <Fragment key={"image-" + index}>
-    //           <Message sender={REPLICATE} shouldFillWidth>
-    //             <Image
-    //               alt={
-    //                 ev.prompt
-    //                   ? `The result of the prompt "${ev.prompt}" on the previous image`
-    //                   : "The source image"
-    //               }
-    //               width="512"
-    //               height="512"
-    //               priority={true}
-    //               className="w-full h-auto rounded-lg"
-    //               src={ev.image}
-    //             />
-
-    //             {onUndo && index > 0 && index === events.length - 1 && (
-    //               <div className="mt-2 text-right">
-    //                 <button
-    //                   className="lil-button"
-    //                   onClick={() => {
-    //                     onUndo(index);
-    //                   }}
-    //                 >
-    //                   <UndoIcon className="icon" /> That&apos;s garbage, throw it away!
-    //                 </button>
-    //               </div>
-    //             )}
-    //           </Message>
-
-    //           {(isProcessing || index < events.length - 1) && (
-    //             <Message sender={REPLICATE} isSameSender>
-    //               {getRandomPhrase(CHANGE_WHAT)}
-    //             </Message>
-    //           )}
-    //         </Fragment>
-    //       );
-    //     }
-
-    //     if (ev.prompt) {
-    //       return (
-    //         <Message key={"prompt-" + index} sender={ART_DIRECTOR}>
-    //           {ev.prompt}
-    //         </Message>
-    //       );
-    //     }
-    //   })}
     <section className="w-full">
       {conversation.map((part, index) => {
         const shouldShowUndo = conversation.length > 2
@@ -97,53 +46,6 @@ export default function Messages({
             )}
           </Fragment>
         )
-        // if (ev.image) {
-        //   return (
-        //     <Fragment key={"image-" + index}>
-        //       <Message sender={REPLICATE} shouldFillWidth>
-        //         <Image
-        //           alt={
-        //             ev.prompt
-        //               ? `The result of the prompt "${ev.prompt}" on the previous image`
-        //               : "The source image"
-        //           }
-        //           width="512"
-        //           height="512"
-        //           priority={true}
-        //           className="w-full h-auto rounded-lg"
-        //           src={ev.image}
-        //         />
-
-        //         {onUndo && index > 0 && index === events.length - 1 && (
-        //           <div className="mt-2 text-right">
-        //             <button
-        //               className="lil-button"
-        //               onClick={() => {
-        //                 onUndo(index);
-        //               }}
-        //             >
-        //               <UndoIcon className="icon" /> That&apos;s garbage, throw it away!
-        //             </button>
-        //           </div>
-        //         )}
-        //       </Message>
-
-        //       {(isProcessing || index < events.length - 1) && (
-        //         <Message sender={REPLICATE} isSameSender>
-        //           {getRandomPhrase(CHANGE_WHAT)}
-        //         </Message>
-        //       )}
-        //     </Fragment>
-        //   );
-        // }
-
-        // if (ev.prompt) {
-        //   return (
-        //     <Message key={"prompt-" + index} sender={ART_DIRECTOR}>
-        //       {ev.prompt}
-        //     </Message>
-        //   );
-        // }
       })}
 
       {isProcessing && (

@@ -7,7 +7,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function Footer({ events, startOver, handleImageDropped }) {
+export default function Footer({
+  conversation = [],
+  startOver,
+  handleImageDropped
+}) {
   return (
     <footer className="w-full my-8">
       <div className="text-center">
@@ -18,7 +22,7 @@ export default function Footer({ events, startOver, handleImageDropped }) {
           </a>
         </Link>
 
-        {events.length > 1 && (
+        {conversation.length > 1 && (
           <button className="lil-button" onClick={startOver}>
             <StartOverIcon className="icon" />
             Start over
@@ -27,8 +31,8 @@ export default function Footer({ events, startOver, handleImageDropped }) {
 
         <Dropzone onImageDropped={handleImageDropped} />
 
-        {events.length > 2 && (
-          <Link href={events.findLast((ev) => ev.image).image}>
+        {conversation.length > 2 && (
+          <Link href={conversation.findLast((part) => part.image).image}>
             <a className="lil-button" target="_blank" rel="noopener noreferrer">
               <DownloadIcon className="icon" />
               Download image
@@ -45,12 +49,12 @@ export default function Footer({ events, startOver, handleImageDropped }) {
       </div>
 
       <div className="text-center lil-text mt-8">
-      <div className="inline-block py-2 px-4 border border-yellow-200 rounded-lg bg-[#fef6aa]">
-      🤔 This is a version of the &quot;paint with text&quot; app example from Vercel, modified by Jayne. Check out the original {" "}
-        <Link href="https://github.com/replicate/paint-with-words#readme">
-          <a target="_blank">README</a>
-        </Link>.
-      </div>
+        <div className="inline-block py-2 px-4 border border-yellow-200 rounded-lg bg-[#fef6aa]">
+          🤔 This is a version of the &quot;paint with text&quot; app example from Vercel, modified by Jayne. Check out the original {" "}
+          <Link href="https://github.com/replicate/paint-with-words#readme">
+            <a target="_blank">README</a>
+          </Link>.
+        </div>
       </div>
 
       <div className="text-center lil-text mt-8">
