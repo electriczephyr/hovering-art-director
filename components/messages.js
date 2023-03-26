@@ -52,9 +52,6 @@ export default function Messages({ events, isProcessing, onUndo }) {
               {(isProcessing || index < events.length - 1) && (
                 <Message sender={REPLICATE} isSameSender>
                   {getRandomPhrase(CHANGE_WHAT)}
-                  {/* {index === 0
-                    ? "What do you think, what should we change with this?"
-                    : "Oh yeah, I think that looks great! Do you have more feedback for me?"} */}
                 </Message>
               )}
             </Fragment>

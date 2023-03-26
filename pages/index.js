@@ -7,9 +7,8 @@ import Footer from "components/footer";
 
 import prepareImageFileForUpload from "lib/prepare-image-file-for-upload";
 import { getRandomSeed } from "lib/seeds";
-// import { REPLICATE } from "constants";
-// import { ART_DIRECTOR } from "constants";
-// import { CHANGE_WHAT } from "utils";
+import { ART_DIRECTOR, REPLICATE } from "constants";
+import { CHANGE_WHAT, getRandomPhrase } from "utils";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -19,6 +18,7 @@ export const appMetaDescription = "Describe your vision and I'll see what I can 
 
 export default function Home() {
   const [events, setEvents] = useState([]);
+  const [convo, setConvo] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [error, setError] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -28,6 +28,10 @@ export default function Home() {
   // set the initial image from a random seed
   useEffect(() => {
     setEvents([{ image: seed.image }]);
+    setConvo([
+      { image: seed.image, sender: REPLICATE},
+      { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
+    ]);
   }, [seed.image]);
 
   const handleImageDropped = async (image) => {
@@ -38,6 +42,10 @@ export default function Home() {
       return;
     }
     setEvents(events.concat([{ image }]));
+    setConvo([
+      ...convo,
+      { image, sender: ART_DIRECTOR }
+    ]);
   };
 
   const handleSubmit = async (e) => {
@@ -45,6 +53,11 @@ export default function Home() {
 
     const prompt = e.target.prompt.value;
     const lastImage = events.findLast((ev) => ev.image)?.image;
+
+    setConvo(prevConvo => ([
+      ...prevConvo,
+      { text: prompt, sender: ART_DIRECTOR }
+    ]));
 
     setError(null);
     setIsProcessing(true);
@@ -94,6 +107,15 @@ export default function Home() {
             { image: prediction.output?.[prediction.output.length - 1] },
           ])
         );
+
+        const outputImageUrl = prediction.output?.[prediction.output.length - 1];
+        const newPhrase = getRandomPhrase(CHANGE_WHAT);
+
+        setConvo(prevConvo => ([
+          ...prevConvo,
+          { image: outputImageUrl, sender: REPLICATE },
+          { text: newPhrase, sender: REPLICATE, isSameSender: true }
+        ]));
       }
     }
 
@@ -107,6 +129,8 @@ export default function Home() {
     setIsProcessing(false);
     setInitialPrompt(seed.prompt);
   };
+
+  console.log('conversation:', convo);
 
   return (
     <div>
@@ -134,6 +158,8 @@ export default function Home() {
             setEvents(
               events.slice(0, index - 1).concat(events.slice(index + 1))
             );
+            const updatedConvo = convo.slice(0, convo.length - 3);
+            setConvo(updatedConvo);
           }}
         />
 
