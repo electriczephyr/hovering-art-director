@@ -152,6 +152,7 @@ export default function Home() {
 
         <Messages
           events={events}
+          conversation={convo}
           isProcessing={isProcessing}
           onUndo={(index) => {
             setInitialPrompt(events[index - 1].prompt);

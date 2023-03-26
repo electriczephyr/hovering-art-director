@@ -27,11 +27,11 @@ export default function PromptForm({
 
   return (
     <form onSubmit={handleSubmit} className="animate-in fade-in duration-700">
-      <Message sender={REPLICATE} isSameSender>
+      {/* <Message sender={REPLICATE} isSameSender>
         <label htmlFor="prompt-input">
           {getRandomPhrase(CHANGE_WHAT)}
         </label>
-      </Message>
+      </Message> */}
 
       <div className="flex mt-8">
         <input
