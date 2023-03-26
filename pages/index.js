@@ -7,8 +7,8 @@ import Footer from "components/footer";
 
 import prepareImageFileForUpload from "lib/prepare-image-file-for-upload";
 import { getRandomSeed } from "lib/seeds";
-import { ART_DIRECTOR, REPLICATE } from "constants";
-import { CHANGE_WHAT, getRandomPhrase } from "utils";
+import { ART_DIRECTOR, CHANGE_WHAT, REPLICATE } from "constants";
+import { getRandomPhrase } from "utils";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -154,11 +154,7 @@ export default function Home() {
           events={events}
           conversation={convo}
           isProcessing={isProcessing}
-          onUndo={(index) => {
-            setInitialPrompt(events[index - 1].prompt);
-            setEvents(
-              events.slice(0, index - 1).concat(events.slice(index + 1))
-            );
+          onUndo={() => {
             const updatedConvo = convo.slice(0, convo.length - 3);
             setConvo(updatedConvo);
           }}
@@ -166,7 +162,6 @@ export default function Home() {
 
         <PromptForm
           initialPrompt={initialPrompt}
-          isFirstPrompt={events.length === 1}
           onSubmit={handleSubmit}
           disabled={isProcessing}
         />

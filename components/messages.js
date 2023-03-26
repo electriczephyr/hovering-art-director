@@ -1,9 +1,8 @@
-import { ART_DIRECTOR, REPLICATE } from "constants";
+import { REPLICATE } from "constants";
 import { RotateCcw as UndoIcon } from "lucide-react";
 import Image from "next/future/image";
 import { Fragment, useEffect, useRef } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
-import { CHANGE_WHAT, getRandomPhrase } from "utils";
 import Message from "./message";
 
 export default function Messages({
@@ -19,8 +18,6 @@ export default function Messages({
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [events.length]);
-
-  console.log('conversation', conversation);
 
   return (
     // <section className="w-full">
@@ -75,15 +72,18 @@ export default function Messages({
     //   })}
     <section className="w-full">
       {conversation.map((part, index) => {
+        const shouldShowUndo = conversation.length > 2
+          && conversation[conversation.length - 2].sender === REPLICATE
+          && index === conversation.length - 2
+          && index !== 0;
         return (
           <Fragment key={`image-${index}`}>
-            {/* <p>{part.sender}</p> */}
             {part.image && (
-              // <p>{part.image}</p>
               <ImageMessage
                 sender={part.sender}
                 url={part.image}
                 onUndo={onUndo}
+                showUndo={shouldShowUndo}
                 index={index}
               />
             )}
@@ -161,7 +161,7 @@ const ImageMessage = ({
   sender,
   url,
   onUndo,
-  index,
+  showUndo = false,
 }) => {
   return (
     <Message sender={sender} onUndo={onUndo} shouldFillWidth>
@@ -174,18 +174,16 @@ const ImageMessage = ({
         src={url}
       />
 
-      {/* {onUndo && index > 0 && index === events.length - 1 && (
+      {showUndo && (
         <div className="mt-2 text-right">
           <button
             className="lil-button"
-            onClick={() => {
-              onUndo(index);
-            }}
+            onClick={onUndo}
           >
             <UndoIcon className="icon" /> That&apos;s garbage, throw it away!
           </button>
         </div>
-      )} */}
+      )}
     </Message>
   );
 };

@@ -7,7 +7,6 @@ export default function Message({
   isSameSender = false,
   children,
 }) {
-  console.log('sender is', sender);
   return (
     <div className={`w-full${sender === ART_DIRECTOR ? " text-right" : ""}`}>
       {/* Show the avatar image if current sender differs from previous sender */}
@@ -25,35 +24,6 @@ export default function Message({
     </div>
   );
 }
-
-// const Avatar = ({ sender }) => {
-//   if (sender === ART_DIRECTOR) {
-//     return (
-//       <div className="avatar right">
-//         <p>Hovering Art Director</p>
-//         <Image
-//           src="https://images.unsplash.com/photo-1544973810-7ecf787e9608?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-//           alt="hovering art director avatar"
-//           width="48"
-//           height="48"
-//         />
-//       </div>
-//     );
-
-//   }
-
-//   return (
-//     <div className="avatar">
-//       <Image
-//         src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-//         alt="replicate avatar"
-//         width="48"
-//         height="48"
-//       />
-//       <p>Overworked Intern</p>
-//     </div>
-//   );
-// };
 
 const Avatar = ({ sender }) => {
   const isArtDirector = sender === ART_DIRECTOR;
