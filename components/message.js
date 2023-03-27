@@ -15,7 +15,7 @@ export default function Message({
       {/* Display the message content */}
       <div
         className={`p-3 rounded-lg ${shouldFillWidth ? "" : "inline-block"} ${sender === ART_DIRECTOR
-          ? "text-black bg-[#fef6aa]"
+          ? "text-black bg-[#b0ebff]"
           : "bg-gray-100 text-black"
           } ${isSameSender ? "mt-4" : "mt-2"}`}
       >
