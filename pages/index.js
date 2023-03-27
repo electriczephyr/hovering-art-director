@@ -7,6 +7,8 @@ import Footer from "components/footer";
 
 import prepareImageFileForUpload from "lib/prepare-image-file-for-upload";
 import { getRandomSeed } from "lib/seeds";
+import { ART_DIRECTOR, CHANGE_WHAT, REPLICATE } from "constants";
+import { getRandomPhrase } from "utils";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -15,7 +17,7 @@ export const appSubtitle = "Describe your vision and I'll see what I can do";
 export const appMetaDescription = "Describe your vision and I'll see what I can do";
 
 export default function Home() {
-  const [events, setEvents] = useState([]);
+  const [convo, setConvo] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [error, setError] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -24,33 +26,40 @@ export default function Home() {
 
   // set the initial image from a random seed
   useEffect(() => {
-    setEvents([{ image: seed.image }]);
+    setConvo([
+      { image: seed.image, sender: REPLICATE},
+      { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
+    ]);
   }, [seed.image]);
 
   const handleImageDropped = async (image) => {
     try {
       image = await prepareImageFileForUpload(image);
-      // console.log ("uploading");
     } catch (error) {
       setError(error.message);
       return;
     }
-    setEvents(events.concat([{ image }]));
+    setConvo([
+      ...convo,
+      { image, sender: ART_DIRECTOR },
+      { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
+    ]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const prompt = e.target.prompt.value;
-    const lastImage = events.findLast((ev) => ev.image)?.image;
+    const lastImage = convo.findLast((part) => part.image)?.image;
+
+    setConvo(prevConvo => ([
+      ...prevConvo,
+      { text: prompt, sender: ART_DIRECTOR }
+    ]));
 
     setError(null);
     setIsProcessing(true);
     setInitialPrompt("");
-
-    // make a copy so that the second call to setEvents here doesn't blow away the first. Why?
-    const myEvents = [...events, { prompt }];
-    setEvents(myEvents);
 
     const body = {
       prompt,
@@ -87,11 +96,14 @@ export default function Home() {
       setPredictions(predictions.concat([prediction]));
 
       if (prediction.status === "succeeded") {
-        setEvents(
-          myEvents.concat([
-            { image: prediction.output?.[prediction.output.length - 1] },
-          ])
-        );
+        const outputImageUrl = prediction.output?.[prediction.output.length - 1];
+        const newPhrase = getRandomPhrase(CHANGE_WHAT);
+
+        setConvo(prevConvo => ([
+          ...prevConvo,
+          { image: outputImageUrl, sender: REPLICATE },
+          { text: newPhrase, sender: REPLICATE, isSameSender: true }
+        ]));
       }
     }
 
@@ -100,7 +112,6 @@ export default function Home() {
 
   const startOver = async (e) => {
     e.preventDefault();
-    setEvents(events.slice(0, 1));
     setError(null);
     setIsProcessing(false);
     setInitialPrompt(seed.prompt);
@@ -125,19 +136,16 @@ export default function Home() {
         </hgroup>
 
         <Messages
-          events={events}
+          conversation={convo}
           isProcessing={isProcessing}
-          onUndo={(index) => {
-            setInitialPrompt(events[index - 1].prompt);
-            setEvents(
-              events.slice(0, index - 1).concat(events.slice(index + 1))
-            );
+          onUndo={() => {
+            const updatedConvo = convo.slice(0, convo.length - 3);
+            setConvo(updatedConvo);
           }}
         />
 
         <PromptForm
           initialPrompt={initialPrompt}
-          isFirstPrompt={events.length === 1}
           onSubmit={handleSubmit}
           disabled={isProcessing}
         />
@@ -147,7 +155,7 @@ export default function Home() {
         </div>
 
         <Footer
-          events={events}
+          conversation={convo}
           startOver={startOver}
           handleImageDropped={handleImageDropped}
         />
