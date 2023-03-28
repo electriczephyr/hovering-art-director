@@ -66,6 +66,8 @@ export default function Home() {
       image: lastImage,
     };
 
+    console.log('body', body);
+
     const response = await fetch("/api/predictions", {
       method: "POST",
       headers: {
