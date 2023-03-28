@@ -1,5 +1,5 @@
 import { REPLICATE } from "constants";
-import { RotateCcw as UndoIcon } from "lucide-react";
+import { Trash2 as UndoIcon } from "lucide-react";
 import Image from "next/future/image";
 import { Fragment, useEffect, useRef } from "react";
 import PulseLoader from "react-spinners/PulseLoader";

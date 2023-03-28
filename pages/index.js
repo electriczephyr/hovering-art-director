@@ -12,9 +12,9 @@ import { getRandomPhrase } from "utils";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export const appName = "Hello Hovering Art Director";
-export const appSubtitle = "Describe your vision and I'll see what I can do";
-export const appMetaDescription = "Describe your vision and I'll see what I can do";
+export const appName = "Hey Hovering Art Director";
+export const appSubtitle = "Just describe your vision and I'll try my best!";
+export const appMetaDescription = "Just describe your vision and I'll try my best!";
 
 export default function Home() {
   const [convo, setConvo] = useState([]);
@@ -27,7 +27,7 @@ export default function Home() {
   // set the initial image from a random seed
   useEffect(() => {
     setConvo([
-      { image: seed.image, sender: REPLICATE},
+      { image: seed.image, sender: REPLICATE },
       { text: getRandomPhrase(CHANGE_WHAT), sender: REPLICATE, isSameSender: true },
     ]);
   }, [seed.image]);
@@ -65,6 +65,8 @@ export default function Home() {
       prompt,
       image: lastImage,
     };
+
+    console.log('body', body);
 
     const response = await fetch("/api/predictions", {
       method: "POST",
@@ -129,8 +131,8 @@ export default function Home() {
 
       <main className="container max-w-[700px] mx-auto p-5">
         <hgroup>
-          <h1 className="text-center text-5xl font-bold m-6">{appName}</h1>
-          <p className="text-center text-xl opacity-60 m-6">
+          <h1 className="text-center text-3xl font-bold m-3">{appName}</h1>
+          <p className="text-center text-l opacity-60 m-3">
             {appSubtitle}
           </p>
         </hgroup>

@@ -8,6 +8,7 @@ const nextConfig = {
       "replicate.delivery",
       "user-images.githubusercontent.com",
       "images.unsplash.com",
+      "raw.githubusercontent.com",
     ],
   },
   experimental: {
