@@ -21,7 +21,7 @@ export default function Dropzone(props) {
         ) : (
           <p>
             <UploadIcon className="icon" />
-            Use a pic
+            Upload image
           </p>
         )}
       </div>
