@@ -115,6 +115,8 @@ export default function Home() {
     setError(null);
     setIsProcessing(false);
     setInitialPrompt(seed.prompt);
+    const updatedConvo = convo.slice(0, 2);
+    setConvo(updatedConvo);
   };
 
   return (
