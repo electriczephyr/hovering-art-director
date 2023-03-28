@@ -19,6 +19,10 @@ export default function About() {
           images using text-based instructions. You can upload an image, provide
           a text prompt describing how to change that image, and generate new
           images based on the prompt.
+
+          This version of the app has been slightly modified by <Link href="https://www.linkedin.com/in/jayne/">
+          Jayne Vidheecharoen</Link> and <Link href="https://www.linkedin.com/in/shawnjdesign/">
+          Shawn Jackson</Link>.
         </p>
 
         <p className="prose">
@@ -47,9 +51,9 @@ export default function About() {
             Replicate
           </Link>
           , which exposes a cloud API for running predictions. This website is
-          built with Next.js and hosted on
+          built with Next.js and hosted on {" "}
           <Link href="https://vercel.com/templates/ai">Vercel</Link>, and uses
-          Replicate&apos;s API to run the InstructPix2Pix model. The source code
+          Replicate&apos;s API to run the InstructPix2Pix model. The original source code
           is publicly available on{" "}
           <Link href="https://github.com/replicate/instruct-pix2pix-demo">
             GitHub

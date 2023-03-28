@@ -40,7 +40,7 @@ export default function Footer({
           </Link>
         )}
 
-        <Link href="https://github.com/replicate/instruct-pix2pix-demo">
+        <Link href="https://github.com/electriczephyr/hovering-art-director">
           <a className="lil-button" target="_blank" rel="noopener noreferrer">
             <CodeIcon className="icon" />
             Fork repo
@@ -50,8 +50,8 @@ export default function Footer({
 
       <div className="text-center lil-text mt-8">
         <div className="inline-block py-2 px-4 border border-yellow-200 rounded-lg bg-[#fef6aa]">
-          🤔 This is a version of the &quot;paint with text&quot; app example from Vercel, modified by Jayne. Check out the original {" "}
-          <Link href="https://github.com/replicate/paint-with-words#readme">
+          🤔 This is a version of the &quot;paint with text&quot; app example from Vercel, modified by Jayne and Shawn. Check out the {" "}
+          <Link href="https://github.com/electriczephyr/hovering-art-director/#readme">
             <a target="_blank">README</a>
           </Link>.
         </div>

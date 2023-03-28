@@ -1,8 +1,21 @@
-# 👩‍🎨 Paint by Text
+# 👩‍🎨 Hovering Art Director 
 
-Modify images by chatting with a generative AI model.
+Modify images by chatting with your overworked intern, a generative AI model.
 
-Try it out at [paintbytext.chat](http://paintbytext.chat)
+Try out the original at [paintbytext.chat](http://paintbytext.chat)
+Original repo: [https://github.com/replicate/paint-by-text](https://github.com/replicate/paint-by-text)
+
+Try out our modified version at [https://hovering-art-director.vercel.app/](https://hovering-art-director.vercel.app/)
+Our modified version [https://github.com/electriczephyr/hovering-art-director](https://github.com/electriczephyr/hovering-art-director)
+
+Our changes
+- Replaced seed images with images from Unsplash and Lexica
+- Added avatar images and names for our chat interface
+- Made user uploaded images appear to be sent from the art director 
+- Changed the messages state management 
+- Made the conversation blocks more modular
+
+
 
 ## How it works
 
